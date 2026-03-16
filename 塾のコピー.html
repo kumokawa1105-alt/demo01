@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>みらいアカデミー | 君の可能性を最大限に引き出す学習塾</title>
+    
+    <!-- Google Fonts: Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    },
+                    colors: {
+                        // ポップでビビッドなカラーパレットに変更
+                        primary: '#06b6d4', // シアン（青緑）
+                        secondary: '#f43f5e', // ビビッドピンク
+                        accent: '#eab308', // イエロー
+                        dark: '#0f172a', // 真っ黒に近い色
+                        base: '#f8fafc', // 明るいグレー背景
+                    },
+                    boxShadow: {
+                        // エッジを効かせるネオブルータリズム風の影
+                        'brutal': '4px 4px 0px 0px #0f172a',
+                        'brutal-lg': '8px 8px 0px 0px #0f172a',
+                        'brutal-none': '0px 0px 0px 0px #0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* ポップなドット背景 */
+        .bg-dots {
+            background-image: radial-gradient(#0f172a 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
+
+        /* 蛍光ペンのようなハイライト */
+        .highlight-yellow {
+            background: linear-gradient(transparent 50%, #fef08a 50%);
+        }
+        .highlight-cyan {
+            background: linear-gradient(transparent 50%, #a5f3fc 50%);
+        }
+
+        /* 画像をポップにするためのフィルターとボーダー */
+        .brutal-img {
+            border: 4px solid #0f172a;
+            box-shadow: 8px 8px 0px 0px #0f172a;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body class="font-sans text-dark antialiased bg-base overflow-x-hidden">
+
+    <!-- Header / Navigation -->
+    <header class="fixed w-full bg-white border-b-4 border-dark z-50 transition-all duration-300" id="header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-black text-dark flex items-center gap-2 tracking-tighter hover:-rotate-2 transition-transform">
+                        <div class="bg-accent text-dark border-2 border-dark rounded-md w-8 h-8 flex items-center justify-center shadow-[2px_2px_0px_0px_#0f172a]">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        みらいアカデミー
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#features" class="text-dark font-bold hover:text-primary transition-colors hover:-translate-y-1 block transform">特徴</a>
+                    <a href="#courses" class="text-dark font-bold hover:text-secondary transition-colors hover:-translate-y-1 block transform">コース</a>
+                    <a href="#testimonials" class="text-dark font-bold hover:text-accent transition-colors hover:-translate-y-1 block transform">実績・声</a>
+                    <a href="#faq" class="text-dark font-bold hover:text-primary transition-colors hover:-translate-y-1 block transform">FAQ</a>
+                    
+                    <!-- エッジの効いたボタン -->
+                    <a href="#contact" class="bg-secondary text-white border-2 border-dark px-6 py-2 rounded-xl font-bold shadow-brutal hover:shadow-brutal-none hover:translate-y-[4px] hover:translate-x-[4px] transition-all">
+                        無料体験へ GO!
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="bg-white border-2 border-dark p-2 rounded-lg shadow-[2px_2px_0px_0px_#0f172a] active:shadow-none active:translate-y-[2px] active:translate-x-[2px]">
+                        <i class="fa-solid fa-bars text-xl text-dark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t-4 border-dark absolute w-full shadow-brutal-lg">
+            <div class="px-4 pt-4 pb-8 space-y-4">
+                <a href="#features" class="block px-4 py-3 text-lg font-black text-dark border-2 border-transparent hover:border-dark hover:bg-cyan-50 rounded-lg">特徴</a>
+                <a href="#courses" class="block px-4 py-3 text-lg font-black text-dark border-2 border-transparent hover:border-dark hover:bg-pink-50 rounded-lg">コース</a>
+                <a href="#testimonials" class="block px-4 py-3 text-lg font-black text-dark border-2 border-transparent hover:border-dark hover:bg-yellow-50 rounded-lg">実績・声</a>
+                <a href="#faq" class="block px-4 py-3 text-lg font-black text-dark border-2 border-transparent hover:border-dark hover:bg-gray-50 rounded-lg">FAQ</a>
+                <a href="#contact" class="block w-full text-center mt-6 bg-secondary text-white border-4 border-dark px-6 py-4 rounded-xl font-black text-lg shadow-brutal active:shadow-brutal-none active:translate-y-[4px] active:translate-x-[4px] transition-all">
+                    無料体験へ GO!
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-28 pb-16 lg:pt-40 lg:pb-32 min-h-[85vh] flex items-center bg-dots overflow-hidden">
+        <!-- 背景のポップな図形 -->
+        <div class="absolute top-20 right-10 w-64 h-64 bg-accent rounded-full border-4 border-dark mix-blend-multiply opacity-50 blur-xl animate-pulse"></div>
+        <div class="absolute bottom-10 left-10 w-80 h-80 bg-primary rounded-full border-4 border-dark mix-blend-multiply opacity-30 blur-2xl"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- テキストエリア -->
+                <div class="lg:w-1/2">
+                    <div class="inline-block bg-white border-2 border-dark text-dark font-black px-4 py-1 rounded-full shadow-[2px_2px_0px_0px_#0f172a] transform -rotate-2 mb-6">
+                        🔥 地域密着 × 完全個別指導
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-dark leading-[1.1] mb-6 tracking-tight">
+                        「わかる」から<br>
+                        <span class="text-secondary highlight-yellow px-2 inline-block transform -skew-x-6">「できる」</span>へ。<br>
+                        君の才能、爆発させよう。
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-dark mb-10 font-bold leading-relaxed bg-white/80 p-4 rounded-xl border-2 border-dark shadow-[4px_4px_0px_0px_rgba(15,23,42,0.1)] inline-block backdrop-blur-sm">
+                        ありきたりな勉強法はもうやめよう。<br>
+                        君だけのオーダーメイドカリキュラムで、<br>
+                        志望校合格まで最速で突き進む。
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-6">
+                        <a href="#contact" class="flex justify-center items-center bg-accent text-dark border-4 border-dark px-8 py-4 rounded-2xl text-xl font-black shadow-brutal hover:shadow-brutal-none hover:translate-y-[4px] hover:translate-x-[4px] transition-all group">
+                            無料体験を予約する
+                            <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                        <a href="#features" class="flex justify-center items-center bg-white text-dark border-4 border-dark px-8 py-4 rounded-2xl text-lg font-black shadow-brutal hover:shadow-brutal-none hover:translate-y-[4px] hover:translate-x-[4px] transition-all">
+                            詳しく見る
+                        </a>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-3">
+                        <span class="bg-dark text-white text-xs font-bold px-2 py-1 rounded animate-bounce">NEW!</span>
+                        <p class="text-sm font-bold text-dark border-b-2 border-secondary inline-block">今なら入塾金（22,000円）が無料！</p>
+                    </div>
+                </div>
+
+                <!-- 画像エリア -->
+                <div class="lg:w-1/2 relative mt-10 lg:mt-0">
+                    <!-- ポップな装飾 -->
+                    <i class="fa-solid fa-star absolute -top-8 -left-8 text-5xl text-accent z-20 animate-spin-slow" style="animation-duration: 10s;"></i>
+                    <i class="fa-solid fa-comment-dots absolute -bottom-6 -right-6 text-6xl text-secondary z-20 transform -scale-x-100"></i>
+                    
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="熱中して勉強する学生" class="brutal-img relative z-10 transform lg:-rotate-2 hover:rotate-0 transition-transform duration-500 w-full object-cover aspect-[4/3]" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points Section (Marquee / お悩み) -->
+    <section class="py-16 bg-primary border-y-4 border-dark relative overflow-hidden">
+        <!-- 流れるテキスト（CSSアニメーションなしの簡易版、見た目のエッジ重視） -->
+        <div class="absolute top-0 left-0 w-full h-8 bg-dark text-white font-black text-xs flex items-center justify-around overflow-hidden whitespace-nowrap">
+            <span>NO MORE BORING STUDY</span>
+            <span class="text-accent">•</span>
+            <span>BREAK YOUR LIMITS</span>
+            <span class="text-accent">•</span>
+            <span>CHANGE YOUR FUTURE</span>
+            <span class="text-accent">•</span>
+            <span>NO MORE BORING STUDY</span>
+            <span class="text-accent">•</span>
+            <span>BREAK YOUR LIMITS</span>
+            <span class="text-accent">•</span>
+            <span>CHANGE YOUR FUTURE</span>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-4 transform -skew-x-3 inline-block bg-dark px-6 py-2 shadow-[8px_8px_0px_0px_#eab308]">
+                    こんなモヤモヤ、抱えてない？
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Problem 1 -->
+                <div class="bg-white border-4 border-dark p-8 rounded-2xl shadow-brutal transform md:rotate-2 hover:rotate-0 transition-transform">
+                    <div class="bg-accent border-2 border-dark w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-[4px_4px_0px_0px_#0f172a] mb-6">
+                        <i class="fa-solid fa-head-side-virus"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-dark mb-3">勉強のやり方が<br>そもそも謎</h3>
+                    <p class="text-dark font-medium leading-relaxed">机に向かっている時間は長いのに、テストの点数に全然反映されない。効率悪すぎ問題。</p>
+                </div>
+                <!-- Problem 2 -->
+                <div class="bg-white border-4 border-dark p-8 rounded-2xl shadow-brutal transform md:-rotate-1 hover:rotate-0 transition-transform mt-0 md:mt-8">
+                    <div class="bg-secondary text-white border-2 border-dark w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-[4px_4px_0px_0px_#0f172a] mb-6">
+                        <i class="fa-solid fa-chart-line-down"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-dark mb-3">苦手科目が<br>完全にラスボス化</h3>
+                    <p class="text-dark font-medium leading-relaxed">一度つまずいてから、授業が呪文にしか聞こえない。自力でのレベル上げはもう限界。</p>
+                </div>
+                <!-- Problem 3 -->
+                <div class="bg-white border-4 border-dark p-8 rounded-2xl shadow-brutal transform md:rotate-3 hover:rotate-0 transition-transform">
+                    <div class="bg-primary text-white border-2 border-dark w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-[4px_4px_0px_0px_#0f172a] mb-6">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-dark mb-3">モチベーションが<br>秒で消え去る</h3>
+                    <p class="text-dark font-medium leading-relaxed">目標がないから、気づいたらスマホやゲームに吸い込まれている。やる気スイッチ行方不明。</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <div class="inline-block bg-white border-4 border-dark px-8 py-4 shadow-[8px_8px_0px_0px_#f43f5e] rounded-xl transform rotate-1">
+                    <p class="text-2xl md:text-3xl font-black text-dark">
+                        その悩み、私たちが<span class="text-secondary text-4xl underline decoration-wavy decoration-4 underline-offset-8">秒で解決</span>します！
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-base relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 relative">
+                <span class="bg-dark text-white font-black px-4 py-1 text-sm tracking-widest border-2 border-dark uppercase shadow-[4px_4px_0px_0px_#06b6d4]">The Reasons</span>
+                <h2 class="text-4xl md:text-5xl font-black text-dark mt-6">みらいアカデミーが<br class="md:hidden"><span class="highlight-cyan">選ばれる3つの理由</span></h2>
+            </div>
+
+            <!-- Feature 1 -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute -top-6 -left-6 bg-accent border-4 border-dark text-dark font-black text-6xl w-24 h-24 flex items-center justify-center rounded-xl shadow-brutal z-20 transform -rotate-6">01</div>
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="個別指導" class="brutal-img w-full h-auto object-cover aspect-video relative z-10">
+                </div>
+                <div class="w-full lg:w-1/2 bg-white border-4 border-dark p-8 rounded-2xl shadow-brutal">
+                    <h3 class="text-3xl font-black text-dark mb-6">1対2の<span class="text-primary">超・密着型</span>個別指導</h3>
+                    <p class="text-dark font-bold text-lg leading-relaxed mb-6">
+                        講師1人につき生徒2人まで。「わかったつもり」を絶対に許さない、解説と演習の鬼ループ。質問し放題の環境で、あなたのペースに合わせて徹底的に伴走します。
+                    </p>
+                    <ul class="space-y-4 font-bold">
+                        <li class="flex items-center gap-3 bg-gray-50 border-2 border-dark p-3 rounded-lg">
+                            <i class="fa-solid fa-check text-xl text-secondary"></i>
+                            <span>あなただけの専用チートシート（カリキュラム）作成</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-gray-50 border-2 border-dark p-3 rounded-lg">
+                            <i class="fa-solid fa-check text-xl text-secondary"></i>
+                            <span>学校の進度・定期テストの傾向を完全ハック</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute -top-6 -right-6 bg-secondary border-4 border-dark text-white font-black text-6xl w-24 h-24 flex items-center justify-center rounded-xl shadow-brutal z-20 transform rotate-6">02</div>
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="プロ講師" class="brutal-img w-full h-auto object-cover aspect-video relative z-10">
+                </div>
+                <div class="w-full lg:w-1/2 bg-white border-4 border-dark p-8 rounded-2xl shadow-brutal">
+                    <h3 class="text-3xl font-black text-dark mb-6">採用率5%の<span class="text-secondary">精鋭プロ講師陣</span></h3>
+                    <p class="text-dark font-bold text-lg leading-relaxed mb-6">
+                        ただ教えるだけじゃない。君のやる気に火をつける「コーチング」の達人たち。厳しい関門を突破した熱血講師が、目標達成まで一緒に戦います。
+                    </p>
+                    <ul class="space-y-4 font-bold">
+                        <li class="flex items-center gap-3 bg-gray-50 border-2 border-dark p-3 rounded-lg">
+                            <i class="fa-solid fa-fire text-xl text-secondary"></i>
+                            <span>教えるスキルだけでなく「熱量」を重視した採用</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-gray-50 border-2 border-dark p-3 rounded-lg">
+                            <i class="fa-solid fa-handshake text-xl text-secondary"></i>
+                            <span>万が一相性が合わなければ、何度でも講師チェンジOK</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute -top-6 -left-6 bg-primary border-4 border-dark text-white font-black text-6xl w-24 h-24 flex items-center justify-center rounded-xl shadow-brutal z-20 transform -rotate-3">03</div>
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="自習室" class="brutal-img w-full h-auto object-cover aspect-video relative z-10">
+                </div>
+                <div class="w-full lg:w-1/2 bg-white border-4 border-dark p-8 rounded-2xl shadow-brutal">
+                    <h3 class="text-3xl font-black text-dark mb-6">毎日通える<span class="text-primary">最強の自習室</span></h3>
+                    <p class="text-dark font-bold text-lg leading-relaxed mb-6">
+                        「家だと誘惑が多すぎる…」それなら毎日塾に来ればいい。授業がない日でも使い放題の集中空間で、圧倒的な勉強量を確保せよ。
+                    </p>
+                    <ul class="space-y-4 font-bold">
+                        <li class="flex items-center gap-3 bg-gray-50 border-2 border-dark p-3 rounded-lg">
+                            <i class="fa-solid fa-person-circle-question text-xl text-secondary"></i>
+                            <span>手の空いている講師にいつでも質問アタック可能</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-gray-50 border-2 border-dark p-3 rounded-lg">
+                            <i class="fa-solid fa-books-medical text-xl text-secondary"></i>
+                            <span>過去問・神参考書が揃う充実のライブラリー</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-24 bg-dark text-white border-y-4 border-dark relative">
+        <!-- ドットパターンの背景 -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(white 2px, transparent 2px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-accent via-secondary to-primary">TARGET COURSES</h2>
+                <p class="text-xl font-bold">今の君に必要なのは、どのステージ？</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Elementary -->
+                <div class="bg-white text-dark border-4 border-dark rounded-2xl overflow-hidden shadow-[8px_8px_0px_0px_#eab308] transform hover:-translate-y-2 transition-transform">
+                    <div class="bg-accent border-b-4 border-dark py-6 text-center">
+                        <i class="fa-solid fa-pencil text-5xl mb-2"></i>
+                        <h3 class="font-black text-2xl tracking-wider">小学生コース</h3>
+                        <p class="font-bold text-sm bg-dark text-white inline-block px-3 py-1 rounded-full mt-2">小1〜小6</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="font-black text-xl mb-4 border-l-4 border-accent pl-3">勉強を「遊び」に変える</h4>
+                        <ul class="space-y-3 font-bold text-sm mb-8">
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-dark rounded-full"></div>学習習慣の爆速定着</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-dark rounded-full"></div>算数・国語の苦手ブロック</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-dark rounded-full"></div>中学受験に向けた基礎固め</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-dark rounded-full"></div>フライング英語スタート</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Junior High -->
+                <div class="bg-white text-dark border-4 border-dark rounded-2xl overflow-hidden shadow-[8px_8px_0px_0px_#f43f5e] transform md:-translate-y-6 hover:-translate-y-8 transition-transform relative">
+                    <div class="absolute top-4 right-[-30px] bg-dark text-white font-black text-sm px-10 py-1 transform rotate-45 border-y-2 border-white shadow-md">No.1 人気!</div>
+                    <div class="bg-secondary border-b-4 border-dark py-6 text-center text-white">
+                        <i class="fa-solid fa-book-open text-5xl mb-2"></i>
+                        <h3 class="font-black text-2xl tracking-wider">中学生コース</h3>
+                        <p class="font-bold text-sm bg-dark text-white inline-block px-3 py-1 rounded-full mt-2 border border-white/20">中1〜中3</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="font-black text-xl mb-4 border-l-4 border-secondary pl-3">内申点も実力も総取り</h4>
+                        <ul class="space-y-3 font-bold text-sm mb-8">
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-secondary rounded-full"></div>定期テストの点数爆上げ作戦</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-secondary rounded-full"></div>志望校別の完全攻略チャート</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-secondary rounded-full"></div>部活と両立するタイムマネジメント</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-secondary rounded-full"></div>各種検定（英・漢・数）対策</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- High School -->
+                <div class="bg-white text-dark border-4 border-dark rounded-2xl overflow-hidden shadow-[8px_8px_0px_0px_#06b6d4] transform hover:-translate-y-2 transition-transform">
+                    <div class="bg-primary border-b-4 border-dark py-6 text-center text-white">
+                        <i class="fa-solid fa-university text-5xl mb-2"></i>
+                        <h3 class="font-black text-2xl tracking-wider">高校生コース</h3>
+                        <p class="font-bold text-sm bg-dark text-white inline-block px-3 py-1 rounded-full mt-2 border border-white/20">高1〜高3・既卒</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="font-black text-xl mb-4 border-l-4 border-primary pl-3">大学受験の最適解</h4>
+                        <ul class="space-y-3 font-bold text-sm mb-8">
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-primary rounded-full"></div>国公立・難関私大リベンジ対策</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-primary rounded-full"></div>共通テストのハイスコア戦略</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-primary rounded-full"></div>総合型・学校推薦の徹底対策</li>
+                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-primary rounded-full"></div>評定平均を死守する定期テスト対策</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 bg-base">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block border-2 border-dark font-black px-4 py-1 text-sm bg-accent transform -rotate-2 shadow-brutal mb-4">REAL VOICES</span>
+                <h2 class="text-4xl md:text-5xl font-black text-dark">先輩たちの<span class="highlight-yellow">下克上</span>ストーリー</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Voice 1 -->
+                <div class="bg-white border-4 border-dark p-8 rounded-2xl shadow-[8px_8px_0px_0px_#0f172a] relative mt-8">
+                    <div class="absolute -top-10 left-8 bg-primary border-4 border-dark w-20 h-20 rounded-full overflow-hidden shadow-brutal">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Student" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute top-4 right-6 text-6xl text-gray-200 font-serif opacity-50">"</div>
+                    
+                    <div class="mt-8 mb-4">
+                        <h4 class="font-black text-2xl text-dark mb-1">E判定からの奇跡！<br>第一志望校に合格！</h4>
+                        <p class="font-bold text-gray-500 bg-gray-100 inline-block px-2 py-1 rounded">R.M 君 (高校3年生)</p>
+                    </div>
+                    <p class="text-dark font-bold leading-relaxed relative z-10 text-lg">
+                        「部活引退まで全く勉強しておらず、模試は常にE判定。焦って入塾したんですが、先生が僕の残りの時間から逆算して『今日やるべきこと』を明確にしてくれたおかげで、迷わず勉強に没頭できました。マジで人生変わりました！」
+                    </p>
+                </div>
+
+                <!-- Voice 2 -->
+                <div class="bg-white border-4 border-dark p-8 rounded-2xl shadow-[8px_8px_0px_0px_#0f172a] relative mt-8">
+                    <div class="absolute -top-10 left-8 bg-secondary border-4 border-dark w-20 h-20 rounded-full overflow-hidden shadow-brutal">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Student" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute top-4 right-6 text-6xl text-gray-200 font-serif opacity-50">"</div>
+                    
+                    <div class="mt-8 mb-4">
+                        <h4 class="font-black text-2xl text-dark mb-1">数学の偏差値が<br>一気に15もアップ！</h4>
+                        <p class="font-bold text-gray-500 bg-gray-100 inline-block px-2 py-1 rounded">Y.K さん (中学2年生)</p>
+                    </div>
+                    <p class="text-dark font-bold leading-relaxed relative z-10 text-lg">
+                        「数学が宇宙語にしか見えなくて大嫌いでした。でもここの個別指導では、私がつまずいている前の学年の内容まで戻って、イラストを描きながら面白く教えてくれたんです。今では数学が一番の得点源です！」
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-white border-y-4 border-dark relative">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-secondary rounded-full blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-primary rounded-full blur-3xl opacity-20"></div>
+
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black text-dark mb-4">Q & A</h2>
+                <p class="font-bold text-lg">よくある質問をまとめました</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-base border-4 border-dark rounded-xl shadow-brutal overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none faq-toggle bg-white hover:bg-gray-50 transition-colors">
+                        <span class="font-black text-lg text-dark flex items-center gap-3">
+                            <span class="bg-primary text-white w-8 h-8 flex items-center justify-center rounded border-2 border-dark shadow-[2px_2px_0px_0px_#0f172a]">Q</span> 
+                            部活や習い事と両立できますか？
+                        </span>
+                        <div class="bg-dark text-white w-8 h-8 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-plus transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 py-5 hidden faq-content bg-base border-t-4 border-dark">
+                        <p class="text-dark font-bold flex items-start gap-3">
+                            <span class="bg-secondary text-white w-8 h-8 flex shrink-0 items-center justify-center rounded border-2 border-dark shadow-[2px_2px_0px_0px_#0f172a]">A</span>
+                            余裕で可能です！授業の時間帯や曜日はあなたのスケジュールに合わせて自由に組めます。部活終わりの遅い時間からのスタートも大歓迎です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-base border-4 border-dark rounded-xl shadow-brutal overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none faq-toggle bg-white hover:bg-gray-50 transition-colors">
+                        <span class="font-black text-lg text-dark flex items-center gap-3">
+                            <span class="bg-primary text-white w-8 h-8 flex items-center justify-center rounded border-2 border-dark shadow-[2px_2px_0px_0px_#0f172a]">Q</span> 
+                            授業を休んだらどうなりますか？
+                        </span>
+                        <div class="bg-dark text-white w-8 h-8 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-plus transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 py-5 hidden faq-content bg-base border-t-4 border-dark">
+                        <p class="text-dark font-bold flex items-start gap-3">
+                            <span class="bg-secondary text-white w-8 h-8 flex shrink-0 items-center justify-center rounded border-2 border-dark shadow-[2px_2px_0px_0px_#0f172a]">A</span>
+                            前日までにご連絡いただければ、別の日程に無料で振替が可能です！授業料が無駄になることはありませんのでご安心ください。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-base border-4 border-dark rounded-xl shadow-brutal overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none faq-toggle bg-white hover:bg-gray-50 transition-colors">
+                        <span class="font-black text-lg text-dark flex items-center gap-3">
+                            <span class="bg-primary text-white w-8 h-8 flex items-center justify-center rounded border-2 border-dark shadow-[2px_2px_0px_0px_#0f172a]">Q</span> 
+                            テスト前だけ科目を増やせますか？
+                        </span>
+                        <div class="bg-dark text-white w-8 h-8 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-plus transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 py-5 hidden faq-content bg-base border-t-4 border-dark">
+                        <p class="text-dark font-bold flex items-start gap-3">
+                            <span class="bg-secondary text-white w-8 h-8 flex shrink-0 items-center justify-center rounded border-2 border-dark shadow-[2px_2px_0px_0px_#0f172a]">A</span>
+                            もちろん可能です！普段は英数を受講し、テスト前だけ理科・社会の対策授業を追加する「テスト対策パック」が大人気です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Super CTA Section -->
+    <section id="contact" class="py-24 bg-accent relative overflow-hidden border-b-4 border-dark">
+        <!-- 集中線風の背景 -->
+        <div class="absolute inset-0 z-0 opacity-20" style="background: repeating-conic-gradient(from 0deg, transparent 0deg 10deg, #0f172a 10deg 20deg);"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-block bg-dark text-white font-black text-xl px-6 py-2 rounded-full mb-6 transform -rotate-3 border-4 border-white shadow-[4px_4px_0px_0px_#f43f5e]">
+                行動するなら、今しかない！
+            </div>
+            
+            <h2 class="text-4xl md:text-6xl font-black text-dark mb-8 leading-tight">
+                まずは<span class="text-white bg-dark px-2 mx-1 transform skew-x-6 inline-block">無料体験</span>で<br>
+                違いを体感せよ！
+            </h2>
+            
+            <div class="bg-white border-4 border-dark p-8 md:p-12 rounded-3xl shadow-[16px_16px_0px_0px_#0f172a] transform transition-transform hover:-translate-y-2 relative">
+                <!-- リボン -->
+                <div class="absolute -top-6 -right-6 bg-secondary text-white font-black border-4 border-dark px-6 py-2 rounded-xl transform rotate-12 shadow-brutal text-xl">
+                    毎月先着20名様
+                </div>
+
+                <div class="mb-10">
+                    <p class="text-2xl font-black text-dark mb-2">＼ 今月限定のスペシャル特典 ／</p>
+                    <div class="bg-yellow-100 border-4 border-dark rounded-xl p-4 inline-block transform -rotate-1">
+                        <p class="text-3xl md:text-4xl font-black text-secondary">入塾金<span class="text-dark line-through decoration-4 decoration-dark text-2xl ml-2">22,000円</span> ➔ <span class="text-5xl text-primary">無料！</span></p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="#" class="bg-secondary text-white border-4 border-dark px-8 py-5 rounded-2xl text-2xl font-black shadow-brutal hover:shadow-brutal-none hover:translate-y-[4px] hover:translate-x-[4px] transition-all flex items-center justify-center gap-3 group w-full sm:w-auto">
+                        <i class="fa-solid fa-rocket group-hover:-translate-y-2 transition-transform"></i>
+                        Webから秒で申し込む
+                    </a>
+                </div>
+                
+                <div class="mt-10 pt-8 border-t-4 border-dashed border-dark">
+                    <p class="text-dark font-bold mb-2">保護者様からの電話相談も大歓迎！</p>
+                    <a href="tel:0120-XXX-XXX" class="inline-flex items-center justify-center gap-3 text-4xl md:text-5xl font-black text-dark hover:text-primary transition-colors bg-base px-6 py-3 border-4 border-dark rounded-2xl shadow-brutal hover:shadow-brutal-none hover:translate-y-[4px] hover:translate-x-[4px] active:bg-gray-200">
+                        <i class="fa-solid fa-phone"></i>
+                        0120-XXX-XXX
+                    </a>
+                    <p class="text-sm font-bold text-gray-500 mt-4">受付：平日 14:00〜21:00 / 土曜 13:00〜20:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 border-b-4 border-gray-700 pb-12 mb-8">
+                <div class="text-center md:text-left">
+                    <a href="#" class="text-3xl font-black text-white flex items-center justify-center md:justify-start gap-3 mb-4">
+                        <div class="bg-accent text-dark border-2 border-dark rounded w-10 h-10 flex items-center justify-center">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        みらいアカデミー
+                    </a>
+                    <p class="font-bold text-gray-400">君の才能を、最速で結果に変える塾。</p>
+                </div>
+
+                <div class="flex gap-4">
+                    <a href="#" class="w-12 h-12 bg-white text-dark border-2 border-dark rounded-xl flex items-center justify-center text-xl hover:bg-accent hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_#eab308]"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="w-12 h-12 bg-white text-dark border-2 border-dark rounded-xl flex items-center justify-center text-xl hover:bg-secondary hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_#f43f5e]"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-12 h-12 bg-white text-dark border-2 border-dark rounded-xl flex items-center justify-center text-xl hover:bg-primary hover:-translate-y-1 transition-all shadow-[4px_4px_0px_0px_#06b6d4]"><i class="fa-brands fa-line"></i></a>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 font-bold text-sm text-gray-400 mb-12">
+                <div class="flex flex-col gap-2">
+                    <a href="#features" class="hover:text-white transition-colors">特徴</a>
+                    <a href="#courses" class="hover:text-white transition-colors">コース案内</a>
+                    <a href="#testimonials" class="hover:text-white transition-colors">合格実績</a>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <a href="#faq" class="hover:text-white transition-colors">よくある質問</a>
+                    <a href="#" class="hover:text-white transition-colors">会社概要</a>
+                    <a href="#" class="hover:text-white transition-colors">アクセス</a>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <a href="#" class="hover:text-white transition-colors">採用情報</a>
+                    <a href="#" class="hover:text-white transition-colors">プライバシーポリシー</a>
+                </div>
+            </div>
+            
+            <div class="text-center font-bold text-gray-500 text-sm">
+                <p>&copy; 2026 Mirai Academy. BUST THE LIMIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Header styling on scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-brutal-lg');
+            } else {
+                header.classList.remove('shadow-brutal-lg');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+                mobileBtn.classList.remove('bg-accent');
+                mobileBtn.classList.add('bg-white');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+                mobileBtn.classList.remove('bg-white');
+                mobileBtn.classList.add('bg-accent');
+            }
+        });
+
+        // Close mobile menu on link click
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                const icon = mobileBtn.querySelector('i');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+                mobileBtn.classList.remove('bg-accent');
+                mobileBtn.classList.add('bg-white');
+            });
+        });
+
+        // FAQ Accordion with icon rotation
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('.fa-plus');
+                const iconContainer = icon.parentElement;
+                
+                content.classList.toggle('hidden');
+                
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                    iconContainer.classList.remove('bg-primary');
+                    iconContainer.classList.add('bg-dark');
+                    toggle.classList.remove('bg-gray-50');
+                } else {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                    iconContainer.classList.remove('bg-dark');
+                    iconContainer.classList.add('bg-primary');
+                    toggle.classList.add('bg-gray-50');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
